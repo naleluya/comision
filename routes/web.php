@@ -1,4 +1,6 @@
 <?php
+//use Symfony\Component\Routing\Route;
+use Illuminate\Support\Facades\Route; 
 
 /*
 |--------------------------------------------------------------------------
@@ -11,6 +13,12 @@
 |
 */
 
-Route::get('/h', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+Route::get("/", "AdminController@index");
+Route::get("/crear", "AdminController@create");
+Route::get("/articulos", "AdminController@store");
+Route::get("/mostrar", "AdminController@show");
+Route::get("/contacto", "AdminController@contactar");
+Route::get("/galeria", "AdminController@galeria");
