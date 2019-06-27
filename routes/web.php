@@ -2,6 +2,8 @@
 //use Symfony\Component\Routing\Route;
 use Illuminate\Support\Facades\Route; 
 use App\Articulo;
+use App\Cliente;
+use App\Calificaciones;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,4 +94,36 @@ Route::get("/borrar", function(){
 
 Route::get("/insercionvarios", function(){
     Articulo::create(["nombre_articulo"=>"Impresora","precio"=>50,"pais_origen"=>"Colombia","observaciones"=>"Nada que decir","seccion"=>"Informatica"]);
+});
+
+Route::get("/cliente/{id}/articulo", function($id){
+    return Cliente::find($id)->articulo;
+});
+
+Route::get("/articulo/{id}/cliente", function($id){
+    return Articulo::find($id)->cliente->nombre;
+});
+
+Route::get("/articulos", function(){
+    $articulos = Cliente::find(3)->articulos->where("pais_origen", "España");
+
+    foreach($articulos as $articulo){
+        echo $articulo->nombre_articulo . "<br>";
+    }
+});
+
+Route::get("/cliente/{id}/perfil", function($id){
+
+    $cliente = Cliente::find($id);
+    foreach ($cliente->perfils as $perfil){
+
+        return $perfil->nombre;
+    }
+});
+
+Route::get("/calificaciones", function(){
+    $articulo = Articulo::find(4);
+    foreach($articulo->calificaciones as $calificacion){
+        return $calificacion;
+    }
 });
